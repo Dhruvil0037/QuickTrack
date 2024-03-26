@@ -218,7 +218,17 @@ a {
   margin: 0;
   background-color: #394b5987;
   color: #ffa500;
-
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.active-merchantst-table-heading-bar {
+  margin: 0;
 }
 .active-merchantst-table-left, .active-merchant-table-right {
   box-shadow: 0 4px 13px 5px rgb(255 255 255 / 40%), 0 2px 4px 0 rgb(255 255 255 / 6%);

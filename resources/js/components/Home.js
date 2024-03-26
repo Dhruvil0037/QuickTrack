@@ -13,11 +13,13 @@ import {
   useMaterialReactTable,
 } from 'material-react-table';
 import '../../css/app.css';
+import { set } from 'lodash';
 
 function Home({AppName}) {
     
     const appName = AppName.replaceAll('-', '');
     const [MerchantList, setMerchantList] = useState();
+    const [loading, setLoading] = useState(true);
 
     const theme = createTheme({
       palette: {
@@ -33,18 +35,19 @@ function Home({AppName}) {
     };
 
     useEffect(() => {
-      FetchMerchantList();
-  }, []);
-
-    const FetchMerchantList = () =>{
-      axios.post(`/api/${appName}/AllData`)
+    const FetchMerchantList = async() =>{
+      await axios.post(`/api/${appName}/AllData`)
       .then(response => { 
-          console.log(response.data);
           setMerchantList(response.data);
+          setLoading(false);
       })
       .catch(error => {console.log(error)});
-    }
-    
+    };
+    FetchMerchantList();
+  }, []);
+
+  if(!loading){console.log(MerchantList);}
+  
     const [activeData,setActiveData] = useState([
       {
         storeName:'Test Store',
@@ -330,7 +333,8 @@ function Home({AppName}) {
       
 
   return (
-    
+    <>
+    {!loading&&
     <main className='main-container'>
         <div className='main-title'>
             <h3>DASHBOARD</h3>
@@ -342,7 +346,7 @@ function Home({AppName}) {
                     <h3>Total Active Merchants</h3>
                     <BsFillArchiveFill className='card_icon'/>
                 </div>
-                <h1>300</h1>
+                <h1>{MerchantList.activeMerchantCounts}</h1>
             </Link>
           </div>
           <div className='card'>
@@ -351,7 +355,7 @@ function Home({AppName}) {
                     <h3>Submitted Reviews</h3>
                     <BsFillGrid3X3GapFill className='card_icon'/>
                 </div>
-                <h1>12</h1>
+                <h1>{MerchantList.allReviewCounts}</h1>
             </Link>
           </div>
           <div className='card'>
@@ -360,7 +364,7 @@ function Home({AppName}) {
                     <h3>Free Plan Merchants</h3>
                     <BsPeopleFill className='card_icon'/>
                 </div>
-                <h1>33</h1>
+                <h1>{MerchantList.freeMerchantCounts}</h1>
             </Link>
           </div>
           <div className='card'>
@@ -369,7 +373,7 @@ function Home({AppName}) {
                     <h3>Paid Plan Merchants</h3>
                     <BsFillBellFill className='card_icon'/>
                 </div>
-                <h1>42</h1>
+                <h1>{MerchantList.paidMerchantCounts}</h1>
             </Link>
           </div>
         </div>
@@ -437,8 +441,8 @@ function Home({AppName}) {
                 </div>
             </div>
         
-    </main>
-    
+    </main>}
+    </>
   )
 }
 

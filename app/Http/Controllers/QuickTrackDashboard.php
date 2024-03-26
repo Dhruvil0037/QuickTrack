@@ -38,36 +38,36 @@ class QuickTrackDashboard extends Controller
                     $data['paidMerchantCounts'] = DB::table('users')->count();
 
                     $data['topTenActiveMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
+                                ->selectRaw('*, DATE_FORMAT(created_at, "%Y-%m-%d") as formatted_created_at')
                                 ->where('store_is_inactive', 0)
                                 ->orderBy('created_at', 'desc')
                                 ->get();
 
                     $data['topTenLoginMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
+                                ->selectRaw('*, DATE_FORMAT(created_at, "%Y-%m-%d") as formatted_created_at')
                                 ->where('store_is_inactive', 0)
                                 ->orderBy('created_at', 'desc')
                                 ->get();
                     break;
                 case 'ActiveMerchantList':
                     $data['activeMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
+                                ->selectRaw('*, DATE_FORMAT(created_at, "%Y-%m-%d") as formatted_created_at')
                                 ->where('store_is_inactive', 0)
                                 ->orderBy('created_at', 'desc')->get();
                     break;
                 case 'AllMerchantList':
                     $data['allMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
+                                ->selectRaw('*, DATE_FORMAT(created_at, "%Y-%m-%d") as formatted_created_at')
                                 ->orderBy('created_at', 'desc')->get();
                     break;
                 case 'FreeMerchantList':
                     $data['freeMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
+                                ->selectRaw('*, DATE_FORMAT(created_at, "%Y-%m-%d") as formatted_created_at')
                                 ->orderBy('created_at', 'desc')->get();
                     break;
                 case 'PaidMerchantList':
                     $data['paidMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
+                                ->selectRaw('*, DATE_FORMAT(created_at, "%Y-%m-%d") as formatted_created_at')
                                 ->orderBy('created_at', 'desc')->get();
                     break;
                 default:

@@ -163,14 +163,18 @@ function MerchantList({RequestedData , OpenSidebar}) {
     <>
         <Header OpenSidebar={OpenSidebar} AppName ={AppName} PageName={RequestedData}/>
         <main className='main-container'>
-        <div className='table-details'>
-            <h3 className='active-merchantst-table-heading' >{RequestedData}</h3>
+          <div className='table-details'>
+            <div className='active-merchantst-table-heading'>
+              <p className='active-merchantst-table-heading-bar'>{RequestedData}</p>
+              <p className='active-merchantst-table-heading-bar'>heading</p>
+            </div>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <ThemeProvider theme={theme}>
-                  <MaterialReactTable table={table} />
-              </ThemeProvider>
+            <ThemeProvider theme={theme}>
+                <MaterialReactTable table={table} />
+            </ThemeProvider>
             </LocalizationProvider>
           </div>
+        
         </main>
     </>
   )
