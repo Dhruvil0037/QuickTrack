@@ -35,7 +35,7 @@ function MerchantUserData({OpenSidebar}) {
     }, []);
 
     const FetchMerchantData = ()=>{
-      axios.post(`/api/${appName}/${RequestedData}`)    
+      axios.post(`/api/${appName}/url-${RequestedData}`)    
         .then(response => { 
             setData(response.data);
         })
@@ -336,6 +336,16 @@ const columns = useMemo(
   header: 'State',
   size: 150,
 },
+// ?Remove This Comments
+// {
+          
+//   id: 'createdAt',
+//   header: 'Created At',
+//   accessorFn: (originalRow) => new Date(originalRow.createdAt),
+//   filterVariant: 'date-range',
+//   Cell: ({ cell }) => cell.getValue().toLocaleDateString(),
+  
+// },
 ],
 [],
 );
@@ -383,18 +393,18 @@ return (
         <>
           <Header OpenSidebar={OpenSidebar} AppName ={AppName} PageName="Merchant Detail"/>
           <main className='main-container'>
-            <div>
-              <h3>{RequestedData}'s Owner Details</h3>
-              <ThemeProvider theme={theme}>
-                  <MaterialReactTable table={MerchantOwnerDetail} />
-              </ThemeProvider>
-            </div>
-            <div>
-              <h3>{RequestedData}'s Users Details</h3>
-              <ThemeProvider theme={theme}>
-                  <MaterialReactTable table={MerchantUserDetail} />
-              </ThemeProvider>
-            </div>
+            <div className='table-details'>
+                <h3 className='active-merchantst-table-heading'>{RequestedData}'s Owner Details</h3>
+                <ThemeProvider theme={theme}>
+                    <MaterialReactTable table={MerchantOwnerDetail} />
+                </ThemeProvider>
+              </div>
+              <div className='table-details'>
+                <h3 className='active-merchantst-table-heading'>{RequestedData}'s Users Details</h3>
+                <ThemeProvider theme={theme}>
+                    <MaterialReactTable table={MerchantUserDetail} />
+                </ThemeProvider>
+              </div>
           </main>
           
         </>);
