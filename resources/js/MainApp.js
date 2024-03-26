@@ -66,3 +66,4 @@ if (document.querySelector("#app")) {
         </BrowserRouter>
         );
     }
+    

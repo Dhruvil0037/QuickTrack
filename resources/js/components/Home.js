@@ -18,7 +18,7 @@ import { set } from 'lodash';
 function Home({AppName}) {
     
     const appName = AppName.replaceAll('-', '');
-    const [MerchantList, setMerchantList] = useState();
+    const [Data, setData] = useState();
     const [loading, setLoading] = useState(true);
 
     const theme = createTheme({
@@ -35,85 +35,30 @@ function Home({AppName}) {
     };
 
     useEffect(() => {
-    const FetchMerchantList = async() =>{
+    const FetchData = async() =>{
       await axios.post(`/api/${appName}/AllData`)
       .then(response => { 
-          setMerchantList(response.data);
+          setData(response.data);
           setLoading(false);
       })
       .catch(error => {console.log(error)});
     };
-    FetchMerchantList();
+    FetchData();
   }, []);
-
-  if(!loading){console.log(MerchantList);}
   
-    const [activeData,setActiveData] = useState([
-      {
-        storeName:'Test Store',
-        email:'test@gmail.com',
-        submitedCount: '12',
-      },
-      {
-        storeName:'Test Store',
-        email:'test@gmail.com',
-        submitedCount:'12',
-      },
-      {
-        storeName:'Test Store',
-        email:'test@gmail.com',
-        submitedCount:'12',
-      },
-      {
-        storeName: 'Test Store',
-        email:'test@gmail.com',
-        submitedCount: '12',
-      },
-      {
-        storeName: 'Test Store',
-        email:'test@gmail.com',
-        submitedCount: '12',
-      },
-      {
-        storeName: 'Test Store',
-        email:'test@gmail.com',
-        submitedCount: '12',
-      },
-      {
-        storeName: 'Test Store',
-        email:'test@gmail.com',
-        submitedCount: '12',
-      },
-      {
-        storeName: 'Test Store',
-        email:'test@gmail.com',
-        submitedCount: '12',
-      },
-      {
-        storeName: 'Test Store',
-        email:'test@gmail.com',
-        submitedCount: '12',
-      },
-      {
-        storeName: 'Test Store',
-        email:'test@gmail.com',
-        submitedCount: '12',
-      },
-      {
-        storeName: 'Test Store',
-        email:'test@gmail.com',
-        submitedCount: '12',
-      },
-      {
-        storeName: 'Test Store',
-        email:'test@gmail.com',
-        submitedCount: '12',
-      },
-    ]
-    );
+  if(!loading){console.log("Data",Data);}
     
-    const activeMerchantData = useMemo(() =>activeData,[],
-      );
+  const activeMerchantData = useMemo(() => {
+    if (Data) {
+        return Data.topTenActiveMerchants.map((item, index) => ({
+            storeName: item.name,
+            email: item.store_email,
+            submitedCount: item.total_submission_row,
+        }));
+    }
+    return [];
+}, [Data]);
+    console.log("activeMerchantData",activeMerchantData);
       
       const activeDataColumns = useMemo(
         () => [
@@ -135,7 +80,7 @@ function Home({AppName}) {
         ],
         [],
         );
-        
+      //? Change this according to the activeMerchantData
     const [loginData,setLoginData] = useState([
       {
       user:'username',
@@ -346,7 +291,7 @@ function Home({AppName}) {
                     <h3>Total Active Merchants</h3>
                     <BsFillArchiveFill className='card_icon'/>
                 </div>
-                <h1>{MerchantList.activeMerchantCounts}</h1>
+                <h1>{Data.activeMerchantCounts}</h1>
             </Link>
           </div>
           <div className='card'>
@@ -355,7 +300,7 @@ function Home({AppName}) {
                     <h3>Submitted Reviews</h3>
                     <BsFillGrid3X3GapFill className='card_icon'/>
                 </div>
-                <h1>{MerchantList.allReviewCounts}</h1>
+                <h1>{Data.allReviewCounts}</h1>
             </Link>
           </div>
           <div className='card'>
@@ -364,7 +309,7 @@ function Home({AppName}) {
                     <h3>Free Plan Merchants</h3>
                     <BsPeopleFill className='card_icon'/>
                 </div>
-                <h1>{MerchantList.freeMerchantCounts}</h1>
+                <h1>{Data.freeMerchantCounts}</h1>
             </Link>
           </div>
           <div className='card'>
@@ -373,7 +318,7 @@ function Home({AppName}) {
                     <h3>Paid Plan Merchants</h3>
                     <BsFillBellFill className='card_icon'/>
                 </div>
-                <h1>{MerchantList.paidMerchantCounts}</h1>
+                <h1>{Data.paidMerchantCounts}</h1>
             </Link>
           </div>
         </div>

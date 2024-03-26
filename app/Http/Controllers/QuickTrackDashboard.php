@@ -38,12 +38,16 @@ class QuickTrackDashboard extends Controller
                     $data['paidMerchantCounts'] = DB::table('users')->count();
 
                     $data['topTenActiveMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%Y-%m-%d") as formatted_created_at')
-                                ->where('store_is_inactive', 0)
-                                ->orderBy('created_at', 'desc')
+                                ->selectRaw('users.*, user_additional_datas.store_email, DATE_FORMAT(users.created_at, "%Y-%m-%d") as formatted_created_at, 
+                                            (SELECT COUNT(*) FROM product_reviews WHERE product_reviews.user_id = user_additional_datas.user_id) AS total_submission_row')
+                                ->leftJoin('user_additional_datas', 'users.id', '=', 'user_additional_datas.user_id')
+                                ->where('users.store_is_inactive', 0)
+                                ->orderBy('users.created_at', 'desc')
+                                ->limit(10)
                                 ->get();
 
-                    $data['topTenLoginMerchants'] = DB::table('users')
+                
+                    $data['topTenLogin'] = DB::table('users')
                                 ->selectRaw('*, DATE_FORMAT(created_at, "%Y-%m-%d") as formatted_created_at')
                                 ->where('store_is_inactive', 0)
                                 ->orderBy('created_at', 'desc')

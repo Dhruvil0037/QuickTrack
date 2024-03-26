@@ -24,7 +24,7 @@ function MerchantList({RequestedData , OpenSidebar}) {
 
     const [Data, setData] = useState();
     const navigate = useNavigate();
-
+    const [loading, setLoading] = useState(true);
     // Function to go back to the previous page
     const handleGoBack = () => {
       navigate(-1);
@@ -35,16 +35,17 @@ function MerchantList({RequestedData , OpenSidebar}) {
     const requestedData = RequestedData.replaceAll(' ', '');
 
     useEffect(() => {
-        FetchMerchantsList();
-    }, []);
-
-    const FetchMerchantsList=()=>{
-        axios.post(`/api/${appName}/${requestedData}`)
+      const FetchMerchantsList=async()=>{
+        await axios.post(`/api/${appName}/${requestedData}`)
         .then(response => { 
-            setData(response.data);
+          setData(response.data);
+          setLoading(false);
         })
         .catch(error => {console.log(error)});
-    }
+      }
+      FetchMerchantsList();
+    }, []);
+    if(!loading){console.log("Data",Data);}
     const [Testing,SetTesting] = useState([
         {
           name: {
@@ -78,7 +79,7 @@ function MerchantList({RequestedData , OpenSidebar}) {
         },
       ]
       );
-    const data = useMemo(() =>Testing,[],
+    const merchantList = useMemo(() =>Testing,[],
       );
     const columns = useMemo(
         () => [
@@ -122,7 +123,7 @@ function MerchantList({RequestedData , OpenSidebar}) {
         );
     const table = useMaterialReactTable({
         columns,
-        data,
+        data : merchantList,
         mrtTheme: {
             baseBackgroundColor: '#1d2634', 
         },
@@ -162,6 +163,7 @@ function MerchantList({RequestedData , OpenSidebar}) {
   return (
     <>
         <Header OpenSidebar={OpenSidebar} AppName ={AppName} PageName={RequestedData}/>
+        {!loading &&
         <main className='main-container'>
           <div className='table-details'>
             <div className='active-merchantst-table-heading'>
@@ -175,7 +177,7 @@ function MerchantList({RequestedData , OpenSidebar}) {
             </LocalizationProvider>
           </div>
         
-        </main>
+        </main>}
     </>
   )
 }
