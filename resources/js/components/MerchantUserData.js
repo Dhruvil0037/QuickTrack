@@ -35,7 +35,7 @@ function MerchantUserData({OpenSidebar}) {
     }, []);
 
     const FetchMerchantData = ()=>{
-      axios.post(`/api/${appName}/${RequestedData}`)    
+      axios.post(`/api/${appName}/url-${RequestedData}`)    
         .then(response => { 
             setData(response.data);
         })

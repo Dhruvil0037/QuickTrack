@@ -37,190 +37,190 @@ function Home({AppName}) {
   }, []);
 
     const FetchMerchantList = () =>{
-      axios.post(`/api/${appName}/topActiveMerchantList`)
+      axios.post(`/api/${appName}/AllData`)
       .then(response => { 
           console.log(response.data);
           setMerchantList(response.data);
       })
       .catch(error => {console.log(error)});
     }
-    const [activeData,setActiveData] = useState([
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-      {
-        StoreName: 'Test Store',
-        Email:'test@gmail.com',
-        SubmitedCount: '12',
-      },
-    ]
-    );
-    const activeMerchantData = useMemo(() =>activeData,[],
-      );
-      const columns = useMemo(
-        () => [
-        {
-          accessorKey: 'StoreName', //access nested data with dot notation
-          header: 'Store Name',
-          size: 150,
-        },
-        {
-          accessorKey: 'Email',
-          header: 'Email',
-          size: 150,
-        },
-        {
-          accessorKey: 'SubmitedCount', //normal accessorKey
-          header: 'Submited Count',
-          size: 200,
-        },
-        ],
-        [],
-        );
-    const [loginData,setLoginData] = useState([
-      {
-      User:'username',
-      Email:'user1@gmail.com',
-      LoginTime: '12:00',
-    },
-      {
-      User:'username',
-      Email:'user1@gmail.com',
-      LoginTime: '12:00',
-    },
-      {
-      User:'username',
-      Email:'user1@gmail.com',
-      LoginTime: '12:00',
-    },
-      {
-      User:'username',
-      Email:'user1@gmail.com',
-      LoginTime: '12:00',
-    },
-      {
-      User:'username',
-      Email:'user1@gmail.com',
-      LoginTime: '12:00',
-    },
-  ]);
-    const LoginData = useMemo(() =>loginData,[],
-    );
-    const loginColumns = useMemo(()=>[
-      {
-        accessorKey: 'User', 
-        header: 'User',
-        size: 150,
-      },
-      {
-        accessorKey: 'Email', 
-        header: 'Email',
-        size: 150,
-      },
-      {
-        accessorKey: 'LoginTime', 
-        header: 'Login Time',
-        size: 150,
-      },
-    ],[]);
-  const ActiveMerchantDataTable = useMaterialReactTable({
-      columns,
-      activeMerchantData,
-      mrtTheme: {
-          baseBackgroundColor: '#1d2634', 
-      },
-      muiTableBodyRowProps: ({ row }) => ({
-          onClick: (event) => {
+    // const [activeData,setActiveData] = useState([
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    //   {
+    //     StoreName: 'Test Store',
+    //     Email:'test@gmail.com',
+    //     SubmitedCount: '12',
+    //   },
+    // ]
+    // );
+  //   const activeMerchantData = useMemo(() =>activeData,[],
+  //     );
+  //     const columns = useMemo(
+  //       () => [
+  //       {
+  //         accessorKey: 'StoreName', //access nested data with dot notation
+  //         header: 'Store Name',
+  //         size: 150,
+  //       },
+  //       {
+  //         accessorKey: 'Email',
+  //         header: 'Email',
+  //         size: 150,
+  //       },
+  //       {
+  //         accessorKey: 'SubmitedCount', //normal accessorKey
+  //         header: 'Submited Count',
+  //         size: 200,
+  //       },
+  //       ],
+  //       [],
+  //       );
+  //   const [loginData,setLoginData] = useState([
+  //     {
+  //     User:'username',
+  //     Email:'user1@gmail.com',
+  //     LoginTime: '12:00',
+  //   },
+  //     {
+  //     User:'username',
+  //     Email:'user1@gmail.com',
+  //     LoginTime: '12:00',
+  //   },
+  //     {
+  //     User:'username',
+  //     Email:'user1@gmail.com',
+  //     LoginTime: '12:00',
+  //   },
+  //     {
+  //     User:'username',
+  //     Email:'user1@gmail.com',
+  //     LoginTime: '12:00',
+  //   },
+  //     {
+  //     User:'username',
+  //     Email:'user1@gmail.com',
+  //     LoginTime: '12:00',
+  //   },
+  // ]);
+  //   const LoginData = useMemo(() =>loginData,[],
+  //   );
+  //   const loginColumns = useMemo(()=>[
+  //     {
+  //       accessorKey: 'User', 
+  //       header: 'User',
+  //       size: 150,
+  //     },
+  //     {
+  //       accessorKey: 'Email', 
+  //       header: 'Email',
+  //       size: 150,
+  //     },
+  //     {
+  //       accessorKey: 'LoginTime', 
+  //       header: 'Login Time',
+  //       size: 150,
+  //     },
+  //   ],[]);
+  // const ActiveMerchantDataTable = useMaterialReactTable({
+  //     columns,
+  //     activeMerchantData,
+  //     mrtTheme: {
+  //         baseBackgroundColor: '#1d2634', 
+  //     },
+  //     muiTableBodyRowProps: ({ row }) => ({
+  //         onClick: (event) => {
              
-              if ( row.original.Email) {
-                  navigate(`/${appName}/${row.original.Email}`);
-              } else {
+  //             if ( row.original.Email) {
+  //                 navigate(`/${appName}/${row.original.Email}`);
+  //             } else {
 
-                  navigate(0);
-              }
-          },
-          sx: {
-          cursor: 'pointer',
+  //                 navigate(0);
+  //             }
+  //         },
+  //         sx: {
+  //         cursor: 'pointer',
           
-      }}),
-      muiTableContainerProps: { sx: { maxHeight: '100vh' , overflow: 'auto' } },
-      enableBottomToolbar: false,
-      });
-  const LoginDataTable = useMaterialReactTable({
-    loginColumns,
-    LoginData,
-    mrtTheme: {
-        baseBackgroundColor: '#1d2634', 
-    },
-    muiTableBodyRowProps: ({ row }) => ({
-        onClick: (event) => {
+  //     }}),
+  //     muiTableContainerProps: { sx: { maxHeight: '100vh' , overflow: 'auto' } },
+  //     enableBottomToolbar: false,
+  //     });
+  // const LoginDataTable = useMaterialReactTable({
+  //   loginColumns,
+  //   LoginData,
+  //   mrtTheme: {
+  //       baseBackgroundColor: '#1d2634', 
+  //   },
+  //   muiTableBodyRowProps: ({ row }) => ({
+  //       onClick: (event) => {
             
-            if ( row.original.Email) {
-                navigate(`/${appName}/${row.original.Email}`);
-            } else {
+  //           if ( row.original.Email) {
+  //               navigate(`/${appName}/${row.original.Email}`);
+  //           } else {
 
-                navigate(0);
-            }
-        },
-        sx: {
-        cursor: 'pointer',
+  //               navigate(0);
+  //           }
+  //       },
+  //       sx: {
+  //       cursor: 'pointer',
         
-    }}),
-    muiTableContainerProps: { sx: { maxHeight: '100vh' , overflow: 'auto' } },
-    enableBottomToolbar: false,
-    });
+  //   }}),
+  //   muiTableContainerProps: { sx: { maxHeight: '100vh' , overflow: 'auto' } },
+  //   enableBottomToolbar: false,
+  //   });
     const data = [
         {
           month:'Jan',
@@ -405,14 +405,14 @@ function Home({AppName}) {
                     </LineChart>
                 </ResponsiveContainer>
         </div>
-        <div>
+        {/* <div>
           <ThemeProvider theme={theme}>
             <MaterialReactTable table={ActiveMerchantDataTable} />
           </ThemeProvider>
           <ThemeProvider theme={theme}>
             <MaterialReactTable table={LoginDataTable} />
           </ThemeProvider>
-        </div>
+        </div> */}
         
     </main>
     
