@@ -17,7 +17,7 @@ function MerchantUserData({OpenSidebar}) {
     });
     const [Data, setData] = useState();
     const navigate = useNavigate();
-
+    const [loading, setLoading] = useState(true);
     // Function to go back to the previous page
     const handleGoBack = () => {
       navigate(-1);
@@ -25,23 +25,25 @@ function MerchantUserData({OpenSidebar}) {
 
     const RequestedData = useParams().requestedData;
 
-    
+
     console.log(useParams().appName);
     let AppName = useParams().appName.replaceAll('-', ' ');
     let appName = useParams().appName.replaceAll('-', '');
 
     useEffect(() => {
+      const FetchMerchantData = async()=>{
+        await axios.post(`/api/${appName}/url-${RequestedData}`)
+          .then(response => {
+              setData(response.data);
+              setLoading(false);
+          })
+          .catch(error => {console.log(error)});
+      };
       FetchMerchantData();
     }, []);
 
-    const FetchMerchantData = ()=>{
-      axios.post(`/api/${appName}/url-${RequestedData}`)    
-        .then(response => { 
-            setData(response.data);
-        })
-        .catch(error => {console.log(error)});
-    }
-   
+
+
 
 //nested data is ok, see accessorKeys in ColumnDef below
 const data = useMemo(() => [
@@ -54,258 +56,7 @@ const data = useMemo(() => [
     city: 'East Daphne',
     state: 'Kentucky',
   },
-  {
-    name: {
-      firstName: 'Jane',
-      lastName: 'Doe',
-    },
-    address: '769 Dominic Grove',
-    city: 'Columbus',
-    state: 'Ohio',
-  },
-  {
-    name: {
-      firstName: 'Joe',
-      lastName: 'Doe',
-    },
-    address: '566 Brakus Inlet',
-    city: 'South Linda',
-    state: 'West Virginia',
-  },
-  {
-    name: {
-      firstName: 'Kevin',
-      lastName: 'Vandy',
-    },
-    address: '722 Emie Stream',
-    city: 'Lincoln',
-    state: 'Nebraska',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Charleston',
-    state: 'South Carolina',
-  },
-  {
-    name: {
-      firstName: 'Test',
-      lastName: 'Test',
-    },
-    address: '32188 Test Test',
-    city: 'Test',
-    state: 'South Test',
-  },
+
 ],[],
 );
 //should be memoized or stable
@@ -336,6 +87,16 @@ const columns = useMemo(
   header: 'State',
   size: 150,
 },
+// UNcomment this Comments
+// {
+
+//   id: 'createdAt',
+//   header: 'Created At',
+//   accessorFn: (originalRow) => new Date(originalRow.createdAt),
+//   filterVariant: 'date-range',
+//   Cell: ({ cell }) => cell.getValue().toLocaleDateString(),
+
+// },
 ],
 [],
 );
@@ -382,21 +143,22 @@ const MerchantUserDetail = useMaterialReactTable({
 return (
         <>
           <Header OpenSidebar={OpenSidebar} AppName ={AppName} PageName="Merchant Detail"/>
+          {!loading&&
           <main className='main-container'>
-            <div>
-              <h3>{RequestedData}'s Owner Details</h3>
-              <ThemeProvider theme={theme}>
-                  <MaterialReactTable table={MerchantOwnerDetail} />
-              </ThemeProvider>
-            </div>
-            <div>
-              <h3>{RequestedData}'s Users Details</h3>
-              <ThemeProvider theme={theme}>
-                  <MaterialReactTable table={MerchantUserDetail} />
-              </ThemeProvider>
-            </div>
-          </main>
-          
+            <div className='table-details'>
+                <h3 className='active-merchantst-table-heading'>{RequestedData}'s Owner Details</h3>
+                <ThemeProvider theme={theme}>
+                    <MaterialReactTable table={MerchantOwnerDetail} />
+                </ThemeProvider>
+              </div>
+              <div className='table-details'>
+                <h3 className='active-merchantst-table-heading'>{RequestedData}'s Users Details</h3>
+                <ThemeProvider theme={theme}>
+                    <MaterialReactTable table={MerchantUserDetail} />
+                </ThemeProvider>
+              </div>
+          </main>}
+
         </>);
 };
 

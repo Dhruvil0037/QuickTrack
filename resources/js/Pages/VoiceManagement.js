@@ -9,8 +9,8 @@ function VoiceManagement({OpenSidebar}) {
 
     return (
             <>        
-                <Header OpenSidebar={OpenSidebar} AppName ={"Voice Management" } PageName={"Dashboard"}/>
-                <Home AppName = {"Voice-Management"}/>  
+                <Header OpenSidebar={OpenSidebar} AppName ={"Voice Search" } PageName={"Dashboard"}/>
+                <Home AppName = {"Voice-Search"}/>  
             </>
     )
 }

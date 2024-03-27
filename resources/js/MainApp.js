@@ -35,7 +35,7 @@ function MainApp() {
                 <Route path="/formBuilder" element={<FormBuiilder OpenSidebar={OpenSidebar}/> } />
                 <Route path="/multiWishlist" element={<MultiWishlist OpenSidebar={OpenSidebar}/> } />
                 <Route path="/eventManagement" element={<EventManagement OpenSidebar={OpenSidebar}/> } />
-                <Route path="/voiceManagement" element={<VoiceManagement OpenSidebar={OpenSidebar}/> } />
+                <Route path="/voiceSearch" element={<VoiceManagement OpenSidebar={OpenSidebar}/> } />
                 <Route path="/customerDiscount" element={<CustomerDiscount OpenSidebar={OpenSidebar}/> } />
                 <Route path="/recipeManagement" element={<RecipeManagement OpenSidebar={OpenSidebar}/> } />
                 <Route path="/marketing" element={<Marketing OpenSidebar={OpenSidebar}/> } />
@@ -66,3 +66,4 @@ if (document.querySelector("#app")) {
         </BrowserRouter>
         );
     }
+    

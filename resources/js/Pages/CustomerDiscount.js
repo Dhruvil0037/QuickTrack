@@ -19,4 +19,3 @@ function CustomerDiscount({OpenSidebar}) {
 
 export default CustomerDiscount;
 
-

@@ -11,7 +11,7 @@ function Reports({OpenSidebar}) {
     <>
         
             <Header OpenSidebar={OpenSidebar} AppName ={"Reports" } />
-            <h3>Reports</h3>
+           
     </>
   )
 }

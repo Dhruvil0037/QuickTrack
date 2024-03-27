@@ -12,7 +12,7 @@ class QuickTrackDashboard extends Controller
 
     public function __construct()
     {
-        
+
         $users = DB::table('users')->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')->orderBy('created_at', 'desc')->get();
         $this->userCollection = collect($users);
     }
@@ -23,7 +23,7 @@ class QuickTrackDashboard extends Controller
         $data['appName'] = $request->appName;
 
         $parts = explode('-', $data['data'], 2);
-        
+
         if (isset($parts[0]) && isset($parts[1])) {
             $data['merchantData'] = DB::table('user_additional_datas')->where('store_url', $parts[1])->first();
             // $data['merchantData'] = DB::table('user_additional_datas')->where('store_url', 'quickstart-e69a1402.myshopify.com')->first();
@@ -34,7 +34,7 @@ class QuickTrackDashboard extends Controller
                 $data['merchantUserData'] = DB::table('product_reviews')->where('user_id', $data['merchantData']->user_id)->get();
             }
             //dd($data['userData']);
-            
+
         } else {
             switch ($data['data']) {
                 case 'AllData':
@@ -47,7 +47,14 @@ class QuickTrackDashboard extends Controller
 
                     $data['paidMerchantCounts'] = $this->userCollection->count();
 
-                    $data['topTenActiveMerchants'] = $this->userCollection->where('store_is_inactive', 0);
+                    $data['topTenActiveMerchants'] = DB::table('users')
+                        ->selectRaw('users.*, user_additional_datas.store_email, DATE_FORMAT(users.created_at, "%Y-%m-%d") as formatted_created_at,
+                                            (SELECT COUNT(*) FROM product_reviews WHERE product_reviews.user_id = user_additional_datas.user_id) AS total_submission_row')
+                        ->leftJoin('user_additional_datas', 'users.id', '=', 'user_additional_datas.user_id')
+                        ->where('users.store_is_inactive', 0)
+                        ->orderBy('users.created_at', 'desc')
+                        ->limit(10)
+                        ->get();
 
                     $data['topTenLoginMerchants'] = $this->userCollection->where('store_is_inactive', 0);
                     break;
@@ -66,25 +73,25 @@ class QuickTrackDashboard extends Controller
                 default:
                     // default case
                     break;
-                    
+
             }
         }
-        
+
         return response()->json($data);
     }
 
     public function Marketing()
     {
         $data['data'] = 'Marketing';
-        
+
         return response()->json($data);
     }
 
     public function Report(Request $request)
     {
         $data['appName'] = $request->appName;
-        
+
         return response()->json($data);
     }
-    
+
 }

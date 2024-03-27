@@ -7,7 +7,11 @@ import '../../css/app.css';
 import {
   MaterialReactTable,
   useMaterialReactTable,
+  MRT_GlobalFilterTextField,
+  MRT_ToggleFiltersButton,
 } from 'material-react-table';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 function MerchantList({RequestedData , OpenSidebar}) {
 
@@ -20,7 +24,7 @@ function MerchantList({RequestedData , OpenSidebar}) {
 
     const [Data, setData] = useState();
     const navigate = useNavigate();
-
+    const [loading, setLoading] = useState(true);
     // Function to go back to the previous page
     const handleGoBack = () => {
       navigate(-1);
@@ -31,16 +35,17 @@ function MerchantList({RequestedData , OpenSidebar}) {
     const requestedData = RequestedData.replaceAll(' ', '');
 
     useEffect(() => {
-        FetchMerchantsList();
-    }, []);
-
-    const FetchMerchantsList=()=>{
-        axios.post(`/api/${appName}/${requestedData}`)
+      const FetchMerchantsList=async()=>{
+        await axios.post(`/api/${appName}/${requestedData}`)
         .then(response => { 
-            setData(response.data);
+          setData(response.data);
+          setLoading(false);
         })
         .catch(error => {console.log(error)});
-    }
+      }
+      FetchMerchantsList();
+    }, []);
+    if(!loading){console.log("Data",Data);}
     const [Testing,SetTesting] = useState([
         {
           name: {
@@ -50,34 +55,8 @@ function MerchantList({RequestedData , OpenSidebar}) {
           address: '261 Erdman Ford',
           city: 'East Daphne',
           state: 'Kentucky',
-        },
-        {
-          name: {
-            firstName: 'Jane',
-            lastName: 'Doe',
-          },
-          address: '769 Dominic Grove',
-          city: 'Columbus',
-          state: 'Ohio',
-        },
-        {
-          name: {
-            firstName: 'Joe',
-            lastName: 'Doe',
-          },
-          address: '566 Brakus Inlet',
-          city: 'South Linda',
-          state: 'West Virginia',
-        },
-        {
-          name: {
-            firstName: 'Kevin',
-            lastName: 'Vandy',
-          },
-          address: '722 Emie Stream',
-          city: 'Lincoln',
-          state: 'Nebraska',
-        },
+          createdAt:"2021-8-10",
+        },   
         {
           name: {
             firstName: 'Joshua',
@@ -86,213 +65,7 @@ function MerchantList({RequestedData , OpenSidebar}) {
           address: '32188 Larkin Turnpike',
           city: 'Charleston',
           state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
-        },
-        {
-          name: {
-            firstName: 'Joshua',
-            lastName: 'Rolluffs',
-          },
-          address: '32188 Larkin Turnpike',
-          city: 'Charleston',
-          state: 'South Carolina',
+          createdAt:'2022-10-28',
         },
         {
           name: {
@@ -302,10 +75,11 @@ function MerchantList({RequestedData , OpenSidebar}) {
           address: '32188 Test Test',
           city: 'Test',
           state: 'South Test',
+          createdAt:'2023-4-5',        
         },
       ]
       );
-    const data = useMemo(() =>Testing,[],
+    const merchantList = useMemo(() =>Testing,[],
       );
     const columns = useMemo(
         () => [
@@ -334,15 +108,27 @@ function MerchantList({RequestedData , OpenSidebar}) {
           header: 'State',
           size: 150,
         },
+        {
+          
+          id: 'createdAt',
+          header: 'Created At',
+          accessorFn: (originalRow) => new Date(originalRow.createdAt),
+          filterVariant: 'date-range',
+          Cell: ({ cell }) => cell.getValue().toLocaleDateString(),
+          
+        },
+        
         ],
         [],
         );
     const table = useMaterialReactTable({
         columns,
-        data,
+        data : merchantList,
         mrtTheme: {
             baseBackgroundColor: '#1d2634', 
         },
+        enableRowVirtualization: true,
+        enableColumnVirtualization: true,
         muiTableBodyRowProps: ({ row }) => ({
             onClick: (event) => {
                
@@ -367,16 +153,31 @@ function MerchantList({RequestedData , OpenSidebar}) {
         enableStickyHeader: true,
         enablePagination: true,
         muiTableContainerProps: { sx: { maxHeight: '100vh' , overflow: 'auto' } },
-        });
+        muiTableToolbarProps: {
+          additionalControls: [
+            <MRT_ToggleFiltersButton key="toggle-filters" />,
+            <MRT_GlobalFilterTextField key="global-filter" />,
+          ],
+        },
+      });
   return (
     <>
         <Header OpenSidebar={OpenSidebar} AppName ={AppName} PageName={RequestedData}/>
+        {!loading &&
         <main className='main-container'>
-                <h3>{RequestedData}</h3>
+          <div className='table-details'>
+            <div className='active-merchantst-table-heading'>
+              <p className='active-merchantst-table-heading-bar'>{RequestedData}</p>
+              <p className='active-merchantst-table-heading-bar'>heading</p>
+            </div>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
             <ThemeProvider theme={theme}>
                 <MaterialReactTable table={table} />
             </ThemeProvider>
-        </main>
+            </LocalizationProvider>
+          </div>
+        
+        </main>}
     </>
   )
 }
