@@ -4,9 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 
 class QuickTrackDashboard extends Controller
 {
+    protected $userCollection;
+
+    public function __construct()
+    {
+        
+        $users = DB::table('users')->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')->orderBy('created_at', 'desc')->get();
+        $this->userCollection = collect($users);
+    }
+
     public function FetchAppData(Request $request)
     {
         $data['data'] = $request->data;
@@ -29,46 +39,29 @@ class QuickTrackDashboard extends Controller
             switch ($data['data']) {
                 case 'AllData':
                     // May be store_is_inactive can change to 1
-                    $data['activeMerchantCounts'] = DB::table('users')->where('store_is_inactive', 0)->count();
+                    $data['activeMerchantCounts'] = $this->userCollection->where('store_is_inactive', 0)->count();
 
                     $data['allReviewCounts'] = DB::table('product_reviews')->count();
 
-                    $data['freeMerchantCounts'] = DB::table('users')->count();
+                    $data['freeMerchantCounts'] = $this->userCollection->count();
 
-                    $data['paidMerchantCounts'] = DB::table('users')->count();
+                    $data['paidMerchantCounts'] = $this->userCollection->count();
 
-                    $data['topTenActiveMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
-                                ->where('store_is_inactive', 0)
-                                ->orderBy('created_at', 'desc')
-                                ->get();
+                    $data['topTenActiveMerchants'] = $this->userCollection->where('store_is_inactive', 0);
 
-                    $data['topTenLoginMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
-                                ->where('store_is_inactive', 0)
-                                ->orderBy('created_at', 'desc')
-                                ->get();
+                    $data['topTenLoginMerchants'] = $this->userCollection->where('store_is_inactive', 0);
                     break;
                 case 'ActiveMerchantList':
-                    $data['activeMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
-                                ->where('store_is_inactive', 0)
-                                ->orderBy('created_at', 'desc')->get();
+                    $data['activeMerchants'] = $this->userCollection->where('store_is_inactive', 0);
                     break;
                 case 'AllMerchantList':
-                    $data['allMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
-                                ->orderBy('created_at', 'desc')->get();
+                    $data['allMerchants'] = $this->userCollection;
                     break;
                 case 'FreeMerchantList':
-                    $data['freeMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
-                                ->orderBy('created_at', 'desc')->get();
+                    $data['freeMerchants'] = $this->userCollection;
                     break;
                 case 'PaidMerchantList':
-                    $data['paidMerchants'] = DB::table('users')
-                                ->selectRaw('*, DATE_FORMAT(created_at, "%d-%m-%Y") as formatted_created_at')
-                                ->orderBy('created_at', 'desc')->get();
+                    $data['paidMerchants'] = $this->userCollection;
                     break;
                 default:
                     // default case
